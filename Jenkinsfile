@@ -43,32 +43,17 @@ pipeline {
                 //slackSend channel: '#jenkins-build', color: 'Good', message: 'Welcome to Jenkins', teamDomain: 'x0c0x', tokenCredentialId: 'slacknotification'
                // slackSend color: 'good', message: 'Build is successfully completed', channel: '#jenkins-build'
               //  slackSend (color: 'good', channel: '#jenkins-build', message: "Completed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-               
-//          def sendBuildStatusOverSlack(String authorSlackID = null) {
-    def colorCode = '#848484' // Gray
-
-    switch (currentBuild.result) {
-        case 'SUCCESS':
-            colorCode = '#00FF00' // Green
-            break
-        case 'UNSTABLE':
-            colorCode = '#FFFF00' // Yellow
-            break
-        case 'FAILURE':
-            colorCode = '#FF0000' // Red
-            break;
-    }
 
     String message = """
         *Jenkins Build*
         Job name: `${env.JOB_NAME}`
         Build number: `#${env.BUILD_NUMBER}`
         Build status: `${currentBuild.result}`
-        Author: ${authorSlackID ? '<@' + authorSlackID + '>' : '???'}
+//        Author: ${authorSlackID ? '<@' + authorSlackID + '>' : '???'}
         Build details: <${env.BUILD_URL}/console|See in web console>
     """.stripIndent()
 
-    return slackSend(color: colorCode, message: message)
+    slackSend(color: colorCode, message: message)
 }          
                     
                     
