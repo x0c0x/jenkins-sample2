@@ -67,7 +67,7 @@
                // slackSend color: 'good', message: 'Build is successfully completed', channel: '#jenkins-build'
               //  slackSend (color: 'good', channel: '#jenkins-build', message: "Completed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
     
-    def currentBuild = 'Pass'
+ //   def currentBuild = 'Pass'
     def message = """
         *Jenkins Build*
         Job name: `${env.JOB_NAME}`
