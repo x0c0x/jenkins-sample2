@@ -27,7 +27,7 @@ pipeline {
                             type: 'war'
                         ]
                     ], 
-                    credentialsId: 'nexuspw', 
+                    credentialsId: 'nexus3', 
                     groupId: 'in.javahome', 
                     nexusUrl: '192.168.1.100:8081', 
                     nexusVersion: 'nexus3', 
@@ -36,6 +36,15 @@ pipeline {
                     version: "${mavenPom.version}"
                     }
             }
+        }
+        stage('Email Notification'){
+             steps{
+                script{
+                mail bcc: '', body: '''Hi Welcome to jenkins email alerts
+                Thanks
+                DevOps''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job Notification', to: 'pannly@gmail.com'
+                }
+             }    
         }
     }
 }
