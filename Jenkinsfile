@@ -17,7 +17,22 @@ pipeline {
                   message: "The pipeline ${currentBuild.fullDisplayName} is building..."
             }
         }
-        stage('Upload War To Nexus'){
+    }
+     
+	
+	stage('SonarQube Analysis') {
+		steps{
+                script{
+
+        def mvnHome =  tool name: 'apache-maven-3.6.1', type: 'maven'
+        withSonarQubeEnv('sonar7') { 
+          sh "${mvnHome}/bin/mvn sonar:sonar"
+        	}
+   	}	
+		}
+	}
+		
+	stage('Upload War To Nexus'){
             steps{
                 script{
 
