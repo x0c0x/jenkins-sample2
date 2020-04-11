@@ -17,22 +17,22 @@
                   message: "The pipeline ${currentBuild.fullDisplayName} is building..."
             }
         }
-    }
+
      
 	
-	stages('SonarQube Analysis') {
-		steps{
-                script{
+	    stage('SonarQube Analysis') {
+            steps{
+                    script{
 
-        def mvnHome =  tool name: 'apache-maven-3.6.1', type: 'maven'
-        withSonarQubeEnv('sonar7') { 
-          sh "${mvnHome}/bin/mvn sonar:sonar"
-        	}
-   	}	
-		}
-	}
+            def mvnHome =  tool name: 'apache-maven-3.6.1', type: 'maven'
+            withSonarQubeEnv('sonar7') { 
+            sh "${mvnHome}/bin/mvn sonar:sonar"
+                    }
+                }   	
+		    }
+        }
 		
-	stages('Upload War To Nexus'){
+	    stage('Upload War To Nexus'){
             steps{
                 script{
 
@@ -58,7 +58,7 @@
         }
 
       
-        stages('Slack Notification'){
+        stage('Slack Notification'){
              steps{
                 script{
                 //slackSend channel: '#jenkins-build', color: 'Good', message: 'Welcome to Jenkins', teamDomain: 'x0c0x', tokenCredentialId: 'slacknotification'
@@ -75,7 +75,8 @@
     """.stripIndent()
 
     slackSend(color: 'good', message: message)
-			}
-			}
+			            }
+			        }
 		     } 
+    }
 }
