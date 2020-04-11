@@ -40,9 +40,7 @@ pipeline {
         stage('Email Notification'){
              steps{
                 script{
-                mail bcc: '', body: '''Hi Welcome to jenkins email alerts
-                Thanks
-                DevOps''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job Notification', to: 'pannly@gmail.com'
+                slackSend channel: '#jenkins-build', color: 'Good', message: 'Welcome to Jenkins', teamDomain: 'x0c0x', tokenCredentialId: 'slacknotification'
                 }
              }    
         }
