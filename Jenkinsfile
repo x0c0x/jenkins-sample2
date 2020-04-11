@@ -7,19 +7,17 @@
         buildDiscarder logRotator(daysToKeepStr: '5', numToKeepStr: '7')
     }
     stages{
-        stage('Build'){
-            steps{
-                 sh script: 'mvn clean package'
-                 archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true
-	// Send slack msg with start build	    
-		 slackSend channel: '#jenkins-build',
-                  color: 'good',
-                  message: "The pipeline ${currentBuild.fullDisplayName} is building..."
-            }
-        }
-
-     
-	
+		stage('Build'){
+		    steps{
+			 sh script: 'mvn clean package'
+			 archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true
+		// Send slack msg with start build	    
+			 slackSend channel: '#jenkins-build',
+			  color: 'good',
+			  message: "The pipeline ${currentBuild.fullDisplayName} is building..."
+		    }
+		}
+   	
 	    stage('SonarQube Analysis') {
             steps{
                     script{
@@ -27,10 +25,14 @@
             def mvnHome =  tool name: 'apache-maven-3.6.1', type: 'maven'
             withSonarQubeEnv('sonar7') { 
             sh "${mvnHome}/bin/mvn sonar:sonar"
-                    }
-                }   	
-		    }
-        }
+		    // Send slack msg with start build	    
+		 slackSend channel: '#jenkins-build',
+                  color: 'good',
+                  message: "The pipeline ${currentBuild.fullDisplayName} is performing coding analysis..."
+              			     }
+				}   	
+			}
+     		   }
 		
 	    stage('Upload War To Nexus'){
             steps{
@@ -65,7 +67,7 @@
                // slackSend color: 'good', message: 'Build is successfully completed', channel: '#jenkins-build'
               //  slackSend (color: 'good', channel: '#jenkins-build', message: "Completed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
     
-    def currentBuildStatus = 'Back to normal'
+    def currentBuild.result = 'Pass'
     def message = """
         *Jenkins Build*
         Job name: `${env.JOB_NAME}`
