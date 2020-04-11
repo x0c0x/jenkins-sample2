@@ -9,7 +9,8 @@
     stages{
 		stage('Build'){
 		    steps{
-             try{   
+                script{
+      		       try{   
 			 sh script: 'mvn clean package'
 			 archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true
 		// Send slack msg with start build	    
@@ -22,6 +23,7 @@
           currentBuild.result = 'FAILURE'
 		                        }
                 }
+            }
         }
 
 	    stage('SonarQube Analysis') {
