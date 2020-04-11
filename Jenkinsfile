@@ -1,4 +1,4 @@
-pipeline {
+ pipeline {
     agent any
     tools {
         maven 'mavenbuild'
@@ -20,7 +20,7 @@ pipeline {
     }
      
 	
-	stage('SonarQube Analysis') {
+	stages('SonarQube Analysis') {
 		steps{
                 script{
 
@@ -32,7 +32,7 @@ pipeline {
 		}
 	}
 		
-	stage('Upload War To Nexus'){
+	stages('Upload War To Nexus'){
             steps{
                 script{
 
@@ -58,7 +58,7 @@ pipeline {
         }
 
       
-        stage('Slack Notification'){
+        stages('Slack Notification'){
              steps{
                 script{
                 //slackSend channel: '#jenkins-build', color: 'Good', message: 'Welcome to Jenkins', teamDomain: 'x0c0x', tokenCredentialId: 'slacknotification'
