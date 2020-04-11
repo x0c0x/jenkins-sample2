@@ -37,7 +37,7 @@ pipeline {
                     }
             }
         }
-        stage('Email Notification'){
+        stage('Slack Notification'){
              steps{
                 script{
                 slackSend channel: '#jenkins-build', color: 'Good', message: 'Welcome to Jenkins', teamDomain: 'x0c0x', tokenCredentialId: 'slacknotification'
