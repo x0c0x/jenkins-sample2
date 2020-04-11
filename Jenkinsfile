@@ -11,6 +11,10 @@ pipeline {
             steps{
                  sh script: 'mvn clean package'
                  archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true
+	// Send slack msg with start build	    
+		 slackSend channel: '#jenkins-build',
+                  color: 'good',
+                  message: "The pipeline ${currentBuild.fullDisplayName} is building..."
             }
         }
         stage('Upload War To Nexus'){
