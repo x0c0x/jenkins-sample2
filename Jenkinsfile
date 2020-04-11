@@ -42,7 +42,7 @@ pipeline {
                 script{
                 //slackSend channel: '#jenkins-build', color: 'Good', message: 'Welcome to Jenkins', teamDomain: 'x0c0x', tokenCredentialId: 'slacknotification'
                // slackSend color: 'good', message: 'Build is successfully completed', channel: '#jenkins-build'
-                slackSend (color: 'good', message: "Completed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"), channel: '#jenkins-build'
+                slackSend (color: 'good', channel: '#jenkins-build', message: "Completed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
 
                 }
              }    
