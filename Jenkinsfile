@@ -38,8 +38,7 @@ pipeline {
             }
         }
 
-
- /**       
+      
         stage('Slack Notification'){
              steps{
                 script{
@@ -57,62 +56,8 @@ pipeline {
     """.stripIndent()
 
     slackSend(color: 'good', message: message)
-}          
-                    
-                    
-                    
-
-                }
-             } 
-*/
-//
-/**
-* Notification in slack to give the status of the build
-* @param currentBuildStatus : status of current build
-* @param previousBuildStatus : status of the previous build
-*/
-//def notifyBuild(String currentBuildStatus, String previousBuildStatus)
-//{
-	//echo "NotifyBuild [previousBuildStatus:${previousBuildStatus},currentBuildStatus:${currentBuildStatus}]."
-  
-  	// build status of null means successful
-  	currentBuildStatus = currentBuildStatus ?: 'SUCCESS'
-  	previousBuildStatus = previousBuildStatus ?: 'SUCCESS'
-
-  	// we set back to normal if we are in success and last wasn't
-	if(previousBuildStatus != 'SUCCESS' && currentBuildStatus == 'SUCCESS')
-	{
-		currentBuildStatus = 'Back to normal'
-	}
-
-	//notification text
-	def jobName = java.net.URLDecoder.decode("${env.JOB_NAME}", "UTF-8");
-	def subject = "${jobName} - #${env.BUILD_NUMBER} ${currentBuildStatus}"
-  	def summary = "${subject} (<${env.BUILD_URL}|Open>)"
-
-  	//colors
-  	if (currentBuildStatus == 'STARTED' || currentBuildStatus == 'UNSTABLE') 
-	{
-		//Yellow
-		colorCode = '#FFFF00'
-	} 
-  	else if (currentBuildStatus == 'SUCCESS' || currentBuildStatus == 'Back to normal') 
-	{
-		//Green
-		colorCode = '#00FF00'
-	}
-	else 
-	{
-		//Red
-		colorCode = '#FF0000'
-	}
-
-	// we notify only errors and back to normal
-	if(currentBuildStatus != 'STARTED' && currentBuildStatus != 'SUCCESS')
-	{
-		slackSend (color: colorCode, message: summary)
-	}
-//
-        }
-    }
-//}
+			}
+			}
+		     } 
+	 }
+}
