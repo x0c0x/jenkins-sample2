@@ -71,9 +71,9 @@ pipeline {
 * @param currentBuildStatus : status of current build
 * @param previousBuildStatus : status of the previous build
 */
-def notifyBuild(String currentBuildStatus, String previousBuildStatus)
-{
-	echo "NotifyBuild [previousBuildStatus:${previousBuildStatus},currentBuildStatus:${currentBuildStatus}]."
+//def notifyBuild(String currentBuildStatus, String previousBuildStatus)
+//{
+	//echo "NotifyBuild [previousBuildStatus:${previousBuildStatus},currentBuildStatus:${currentBuildStatus}]."
   
   	// build status of null means successful
   	currentBuildStatus = currentBuildStatus ?: 'SUCCESS'
@@ -115,4 +115,4 @@ def notifyBuild(String currentBuildStatus, String previousBuildStatus)
 //
         }
     }
-}
+//}
