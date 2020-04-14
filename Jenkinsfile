@@ -7,17 +7,17 @@
         buildDiscarder logRotator(daysToKeepStr: '5', numToKeepStr: '7')
     }
     stages{
-		stage('Build'){
+		stage('Starting build Package'){
 		    steps{
                 script{
-      		       try{   
-			 sh script: 'mvn clean package'
-			 archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true
-		// Send slack msg with start build	    
-			 slackSend channel: '#jenkins-build',
+      		       try{
+		// Send slack msg with starting build
+			slackSend channel: '#jenkins-build',
 			  color: 'good',
 			  message: "The pipeline ${currentBuild.fullDisplayName} is building..."
-             currentBuild.result = 'SUCCESS'
+			sh script: 'mvn clean package'
+			archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true 
+             		currentBuild.result = 'SUCCESS'
 		        }
              catch(Exception err){
           currentBuild.result = 'FAILURE'
@@ -67,7 +67,7 @@
             }
         }
 
-  //update trigger This is cool
+  //update
         stage('Slack Notification'){
              steps{
                 script{
