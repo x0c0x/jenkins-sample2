@@ -67,7 +67,7 @@
             }
         }
 
-  //update trigger
+  //update trigger This is cool
         stage('Slack Notification'){
              steps{
                 script{
