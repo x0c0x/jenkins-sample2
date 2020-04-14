@@ -67,7 +67,7 @@
             }
         }
 
-  //testing     
+  //update trigger
         stage('Slack Notification'){
              steps{
                 script{
