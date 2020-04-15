@@ -14,7 +14,7 @@
 		// Send slack msg with starting build
 			slackSend channel: '#jenkins-build',
 			  color: 'good',
-			  message: "The pipeline ${currentBuild.fullDisplayName} is building..."
+			  message: "The pipeline *${currentBuild.fullDisplayName}* is building..."
 			sh script: 'mvn clean package'
 			archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true 
              		currentBuild.result = 'SUCCESS'
@@ -36,7 +36,7 @@
 		    // Send slack msg with start build	    
 		 slackSend channel: '#jenkins-build',
                   color: 'good',
-                  message: "The pipeline ${currentBuild.fullDisplayName} is performing coding analysis..."
+                  message: "The pipeline *${currentBuild.fullDisplayName}* is performing coding analysis..."
               			     }
 				}   	
 			}
