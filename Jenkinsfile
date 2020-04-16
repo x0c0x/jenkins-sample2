@@ -11,16 +11,16 @@
 		    steps{
                 script{
       		       try{
-		// Send slack msg with starting build
+/*		// Send slack msg with starting build
 			slackSend channel: '#jenkins-build',
 			  color: 'good',
-			  message: "The pipeline *${currentBuild.fullDisplayName}* is building..."
+*/			  message: "The pipeline *${currentBuild.fullDisplayName}* is building..."
 			sh script: 'mvn clean package'
 			archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true 
              		currentBuild.result = 'SUCCESS'
 		        }
              catch(Exception err){
-          currentBuild.result = 'FAILURE'
+  		        currentBuild.result = 'FAILURE'
 		                        }
                 }
             }
@@ -33,10 +33,11 @@
             def mvnHome =  tool name: 'apache-maven-3.6.1', type: 'maven'
             withSonarQubeEnv('sonar7') { 
             sh "${mvnHome}/bin/mvn sonar:sonar"
-		    // Send slack msg with start build	    
+/*		    // Send slack msg with start build	    
 		 slackSend channel: '#jenkins-build',
                   color: 'good',
                   message: "The pipeline *${currentBuild.fullDisplayName}* is performing coding analysis..."
+*/
               			     }
 				}   	
 			}
